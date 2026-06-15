@@ -4,6 +4,11 @@
 ::-webkit-scrollbar-thumb { background: #06b6d4; }
 
 /* ---- Custom cursor ---- */
+@media (hover: none) and (pointer: coarse) {
+  #cursor { display: none !important; }
+  body { cursor: auto !important; }
+}
+
 #cursor-dot {
   width: 8px;
   height: 8px;

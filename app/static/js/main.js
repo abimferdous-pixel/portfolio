@@ -4,29 +4,33 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---- Custom cursor ---- */
-const cursorDot  = document.getElementById("cursor-dot");
-const cursorRing = document.getElementById("cursor-ring");
-let mouseX = 0, mouseY = 0;
-let ringX  = 0, ringY  = 0;
+/* ---- Custom cursor (desktop only) ---- */
+const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-window.addEventListener("mousemove", e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  gsap.set(cursorDot, { x: mouseX, y: mouseY });
-});
+if (!isTouchDevice) {
+  const cursorDot  = document.getElementById("cursor-dot");
+  const cursorRing = document.getElementById("cursor-ring");
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
 
-(function animateRing() {
-  ringX += (mouseX - ringX) * 0.5;
-  ringY += (mouseY - ringY) * 0.5;
-  gsap.set(cursorRing, { x: ringX, y: ringY });
-  requestAnimationFrame(animateRing);
-})();
+  window.addEventListener("mousemove", e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    gsap.set(cursorDot, { x: mouseX, y: mouseY });
+  });
 
-document.querySelectorAll("a, button, .mag-btn, .tilt-card").forEach(el => {
-  el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
-  el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
-});
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.5;
+    ringY += (mouseY - ringY) * 0.5;
+    gsap.set(cursorRing, { x: ringX, y: ringY });
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll("a, button, .mag-btn, .tilt-card").forEach(el => {
+    el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+    el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+  });
+}
 
 /* ---- Nav logo entrance + pulse ---- */
 gsap.from(".nav-logo", { opacity: 0, x: -30, duration: 0.8, delay: 0.2, ease: "back.out(2)" });
