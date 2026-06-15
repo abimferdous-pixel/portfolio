@@ -20,31 +20,28 @@ PORTFOLIO_DATA = {
         "with PCB designing, certified in Solidworks CSWA, and motivated to learn."
     ),
     "skills": [
-        {"name": "Python", "level": 90},
-        {"name": "FastAPI", "level": 85},
-        {"name": "JavaScript", "level": 80},
-        {"name": "HTML & CSS", "level": 88},
-        {"name": "SQL / Databases", "level": 75},
-        {"name": "Docker", "level": 70},
+        "Solidworks CSWA",
+        "Python",
+        "Arduino Library",
     ],
     "projects": [
         {
             "title": "Project Alpha",
             "description": "A real-time data dashboard built with FastAPI and WebSockets.",
             "tags": ["Python", "FastAPI", "WebSockets"],
-            "link": "#",
+            "slug": "project-alpha",
         },
         {
             "title": "Project Beta",
             "description": "An e-commerce platform with secure payments and inventory management.",
             "tags": ["Django", "PostgreSQL", "Stripe"],
-            "link": "#",
+            "slug": "project-beta",
         },
         {
             "title": "Project Gamma",
             "description": "A machine learning pipeline for sentiment analysis on social media.",
             "tags": ["Python", "scikit-learn", "NLP"],
-            "link": "#",
+            "slug": "project-gamma",
         },
     ],
     "social": {
@@ -60,4 +57,11 @@ PORTFOLIO_DATA = {
 async def index(request: Request):
     return templates.TemplateResponse(
         "index.html", {"request": request, "data": PORTFOLIO_DATA}
+    )
+
+@app.get("/project/{slug}", response_class=HTMLResponse)
+async def project_page(request: Request, slug: str):
+    project = next((p for p in PORTFOLIO_DATA["projects"] if p["slug"] == slug), None)
+    return templates.TemplateResponse(
+        "project.html", {"request": request, "project": project, "data": PORTFOLIO_DATA}
     )

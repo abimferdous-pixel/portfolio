@@ -119,16 +119,10 @@
     <div class="max-w-4xl mx-auto text-center">
       <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-3">What I Know</p>
       <h2 class="font-display text-6xl tracking-wider mb-16">Skills</h2>
-      <div class="space-y-7 text-left">
+      <div class="flex flex-wrap justify-center gap-4">
         {% for skill in data.skills %}
-        <div class="skill-bar-wrap">
-          <div class="flex justify-between mb-2">
-            <span class="font-semibold text-gray-200 text-sm tracking-wide uppercase">{{ skill.name }}</span>
-            <span class="text-accent font-bold text-sm skill-pct" data-target="{{ skill.level }}">0%</span>
-          </div>
-          <div class="w-full bg-gray-900 h-1.5 overflow-hidden">
-            <div class="skill-bar h-1.5 bg-gradient-to-r from-cyan-500 to-teal-400 w-0" data-width="{{ skill.level }}"></div>
-          </div>
+        <div class="skill-tag px-8 py-4 bg-gray-900 border border-gray-700 text-gray-200 font-semibold tracking-widest uppercase text-sm rounded-xl hover:border-accent hover:text-accent transition-all duration-200">
+          {{ skill }}
         </div>
         {% endfor %}
       </div>
@@ -157,7 +151,7 @@
             <span class="text-xs bg-gray-900 text-cyan-400/70 px-3 py-1 border border-gray-800 font-semibold tracking-wide">{{ tag }}</span>
             {% endfor %}
           </div>
-          <a href="{{ project.link }}" class="text-accent text-sm font-bold tracking-widest hover:underline uppercase">View Project →</a>
+          <a href="/project/{{ project.slug }}" class="text-accent text-sm font-bold tracking-widest hover:underline uppercase">View Project →</a>
         </div>
         {% endfor %}
       </div>

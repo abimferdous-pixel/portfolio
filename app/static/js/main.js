@@ -125,31 +125,12 @@ gsap.from(".about-card-inner", {
   scrollTrigger: { trigger: "#about", start: "top 70%" },
 });
 
-/* ---- Skill bars + counter ---- */
-gsap.utils.toArray(".skill-bar-wrap").forEach((wrap, i) => {
-  const bar = wrap.querySelector(".skill-bar");
-  const pct = wrap.querySelector(".skill-pct");
-  const target = parseInt(bar.dataset.width);
-
-  gsap.to(wrap, {
-    opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
-    delay: i * 0.09,
-    scrollTrigger: { trigger: "#skills", start: "top 72%" },
-  });
-
-  ScrollTrigger.create({
-    trigger: "#skills",
-    start: "top 72%",
-    once: true,
-    onEnter: () => {
-      gsap.to(bar, { width: target + "%", duration: 1.3, delay: i * 0.09 + 0.2, ease: "power2.out" });
-      // counter
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: target, duration: 1.3, delay: i * 0.09 + 0.2, ease: "power2.out",
-        onUpdate: () => { pct.textContent = Math.round(obj.val) + "%"; },
-      });
-    },
+/* ---- Skill tags pop in ---- */
+gsap.utils.toArray(".skill-tag").forEach((tag, i) => {
+  gsap.from(tag, {
+    opacity: 0, y: 30, scale: 0.8, duration: 0.5, ease: "back.out(2)",
+    delay: i * 0.15,
+    scrollTrigger: { trigger: "#skills", start: "top 75%" },
   });
 });
 
