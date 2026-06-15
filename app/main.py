@@ -25,24 +25,9 @@ PORTFOLIO_DATA = {
         "Arduino Library",
     ],
     "projects": [
-        {
-            "title": "Project Alpha",
-            "description": "A real-time data dashboard built with FastAPI and WebSockets.",
-            "tags": ["Python", "FastAPI", "WebSockets"],
-            "slug": "project-alpha",
-        },
-        {
-            "title": "Project Beta",
-            "description": "An e-commerce platform with secure payments and inventory management.",
-            "tags": ["Django", "PostgreSQL", "Stripe"],
-            "slug": "project-beta",
-        },
-        {
-            "title": "Project Gamma",
-            "description": "A machine learning pipeline for sentiment analysis on social media.",
-            "tags": ["Python", "scikit-learn", "NLP"],
-            "slug": "project-gamma",
-        },
+        {"title": "Project A", "slug": "project-a"},
+        {"title": "Project B", "slug": "project-b"},
+        {"title": "Project C", "slug": "project-c"},
     ],
     "social": {
         "github": "https://github.com/yourhandle",
