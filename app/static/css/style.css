@@ -6,7 +6,7 @@
 /* ---- Custom cursor ---- */
 @media (hover: none) and (pointer: coarse) {
   #cursor { display: none !important; }
-  body { cursor: auto !important; }
+  body, a, button, * { cursor: none !important; }
 }
 
 #cursor-dot {
