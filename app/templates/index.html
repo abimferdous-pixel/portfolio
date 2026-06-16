@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 
-<body class="text-gray-100 font-sans overflow-x-hidden cursor-none" style="background-color:#111111;">
+<body class="text-gray-100 font-sans overflow-x-hidden cursor-none" style="background-color:#1c1c1c;">
 
   <!-- Custom cursor -->
   <div id="cursor" class="fixed top-0 left-0 pointer-events-none z-[9999]">
@@ -51,14 +51,14 @@
   </nav>
 
   <!-- ===== HERO ===== -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color:#111111;">
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color:#1c1c1c;">
     <img id="hero-bg" src="/static/images/UCLA Project.jpg" alt=""
          class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
          style="object-position: center 65%;" />
     <div class="absolute inset-0 z-[1] bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
     <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-      <p id="hero-greeting" class="text-accent font-semibold tracking-[0.4em] uppercase text-sm mb-6 opacity-0">Hello, I'm</p>
+      <p id="hero-greeting" class="text-accent font-semibold tracking-[0.4em] uppercase text-2xl mb-6 opacity-0">Hello, I am Abim!</p>
       <h1 id="hero-name" class="font-display text-8xl md:text-[140px] tracking-wider mb-4 opacity-0 leading-none">{{ data.name }}</h1>
       <h2 id="hero-title" class="text-xl md:text-2xl font-semibold text-cyan-300 mb-6 opacity-0 tracking-widest uppercase">{{ data.title }}</h2>
       <p id="hero-tagline" class="text-base text-gray-300 max-w-xl mx-auto mb-12 opacity-0 leading-relaxed">{{ data.tagline }}</p>
@@ -68,18 +68,16 @@
       </div>
     </div>
 
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-cyan-500 text-xs font-semibold tracking-widest uppercase">
-      <span>Scroll</span>
-      <div class="w-px h-12 bg-gradient-to-b from-accent to-transparent animate-pulse"></div>
-    </div>
   </section>
 
   <!-- ===== ABOUT ===== -->
-  <section id="about" class="py-28 px-6" style="background-color:#111111;">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+  <section id="about" class="py-28 px-6" style="background-color:#1c1c1c;">
+
+
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
 
       <div class="about-card order-1 md:order-1">
-        <div class="about-card-inner w-full aspect-square border border-cyan-900/40 relative overflow-hidden rounded-2xl" style="background-color:#111111;">
+        <div class="about-card-inner w-full aspect-square border border-cyan-900/40 relative overflow-hidden rounded-2xl" style="background-color:#1c1c1c;">
           <img src="/static/images/20250405_182427.jpg" alt="{{ data.name }}"
                class="w-full h-full object-cover object-top" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
@@ -116,7 +114,7 @@
   </section>
 
   <!-- ===== SKILLS ===== -->
-  <section id="skills" class="py-28 px-6" style="background-color:#111111;">
+  <section id="skills" class="py-28 px-6" style="background-color:#1c1c1c;">
     <div class="max-w-4xl mx-auto text-center">
       <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-3">What I Know</p>
       <h2 class="font-display text-6xl tracking-wider mb-16">Skills</h2>
@@ -131,14 +129,14 @@
   </section>
 
   <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="py-28 px-6" style="background-color:#111111;">
+  <section id="projects" class="py-28 px-6" style="background-color:#1c1c1c;">
     <div class="max-w-6xl mx-auto text-center">
       <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-3">What I've Built</p>
       <h2 class="font-display text-6xl tracking-wider mb-16">Projects</h2>
       <div class="grid md:grid-cols-3 gap-8 text-left">
         {% for project in data.projects %}
         <div class="project-card tilt-card group border border-gray-800 p-8 transition-colors duration-300 hover:border-cyan-500/50 flex flex-col justify-between min-h-[160px]"
-             style="background-color:#111111; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))">
+             style="background-color:#1c1c1c; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))">
           <h3 class="font-display text-4xl tracking-wider group-hover:text-accent transition-colors duration-200">{{ project.title }}</h3>
           <a href="/project/{{ project.slug }}" class="text-accent text-sm font-bold tracking-widest hover:underline uppercase mt-6 inline-block">View Project →</a>
         </div>
@@ -148,7 +146,7 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact" class="py-28 px-6" style="background-color:#111111;">
+  <section id="contact" class="py-28 px-6" style="background-color:#1c1c1c;">
     <div class="max-w-3xl mx-auto text-center">
       <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-3">Let's Talk</p>
       <h2 class="font-display text-6xl tracking-wider mb-4">Get In Touch</h2>
