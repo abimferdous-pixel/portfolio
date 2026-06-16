@@ -7,6 +7,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <link rel="stylesheet" href="/static/css/style.css" />
 
   <script>
@@ -42,16 +43,18 @@
   </nav>
 
   <!-- Main -->
-  <main class="flex-1 flex flex-col items-center px-6 pt-28 pb-16">
+  <main class="flex-1 flex flex-col items-center px-4 pt-28 pb-16">
 
     <div class="w-full max-w-4xl" id="resume-content">
-      <div class="flex items-center justify-between mb-8">
+
+      <!-- Header row -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div>
           <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-2">My Resume</p>
-          <h1 class="font-display text-6xl tracking-wider">{{ data.name }}</h1>
+          <h1 class="font-display text-5xl md:text-6xl tracking-wider">{{ data.name }}</h1>
         </div>
         <a href="/static/images/DraftResumeFinale1 - Google Docs.pdf" download
-           class="primary-btn font-bold px-6 py-3 tracking-widest text-sm uppercase flex items-center gap-2">
+           class="primary-btn font-bold px-6 py-3 tracking-widest text-sm uppercase flex items-center gap-2 rounded">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
@@ -59,19 +62,14 @@
         </a>
       </div>
 
-      <!-- PDF Embed -->
-      <div class="w-full border border-gray-800 rounded-xl overflow-hidden" style="height: 85vh;">
-        <iframe
-          src="/static/images/DraftResumeFinale1 - Google Docs.pdf"
-          class="w-full h-full"
-          type="application/pdf"
-          title="Resume">
-          <p class="text-gray-400 text-center p-8">
-            Your browser doesn't support PDF preview.
-            <a href="/static/images/DraftResumeFinale1 - Google Docs.pdf" class="text-accent underline">Download it here.</a>
-          </p>
-        </iframe>
+      <!-- Loading indicator -->
+      <div id="pdf-loading" class="text-center py-12 text-gray-500 text-sm tracking-widest uppercase">
+        Loading resume...
       </div>
+
+      <!-- PDF renders here as canvases -->
+      <div id="pdf-container" class="w-full space-y-4"></div>
+
     </div>
   </main>
 
@@ -80,6 +78,7 @@
   </footer>
 
   <script>
+    // Cursor
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     if (!isTouchDevice) {
       const dot = document.getElementById("cursor-dot");
@@ -92,10 +91,48 @@
         el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
       });
     }
+
     window.addEventListener("scroll", () => {
       document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
     });
+
     gsap.from("#resume-content", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out", delay: 0.2 });
+
+    // PDF.js render
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const container = document.getElementById('pdf-container');
+    const loading   = document.getElementById('pdf-loading');
+    const pdfUrl    = '/static/images/DraftResumeFinale1 - Google Docs.pdf';
+
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+      loading.style.display = 'none';
+      const renders = [];
+      for (let i = 1; i <= pdf.numPages; i++) {
+        renders.push(
+          pdf.getPage(i).then(page => {
+            const containerWidth = container.clientWidth || 800;
+            const unscaled = page.getViewport({ scale: 1 });
+            const scale    = containerWidth / unscaled.width;
+            const viewport = page.getViewport({ scale });
+
+            const canvas  = document.createElement('canvas');
+            canvas.width  = viewport.width;
+            canvas.height = viewport.height;
+            canvas.style.width  = '100%';
+            canvas.style.borderRadius = '8px';
+            canvas.style.border = '1px solid rgba(255,255,255,0.06)';
+
+            container.appendChild(canvas);
+            return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+          })
+        );
+      }
+      return Promise.all(renders);
+    }).catch(() => {
+      loading.textContent = 'Could not load resume. Please download it below.';
+    });
   </script>
 </body>
 </html>
