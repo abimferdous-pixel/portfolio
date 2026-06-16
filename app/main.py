@@ -16,8 +16,10 @@ PORTFOLIO_DATA = {
     "title": "Mechanical Engineering Student",
     "tagline": "Passionate about mechanical systems, PCB design, and building the future one component at a time.",
     "about": (
-        "I am a rising Sophomore from Cerritos College interested in mechanical systems with experience "
-        "with PCB designing, certified in Solidworks CSWA, and motivated to learn."
+        "I am a rising sophomore at Cerritos College pursuing opportunities in mechanical and multidisciplinary engineering. "
+        "My technical experience includes PCB design, Arduino development, Python programming, and CAD modeling, supported by my SolidWorks CSWA certification. "
+        "I have worked on real engineering projects involving design, prototyping, testing, and system integration, giving me practical experience beyond the classroom. "
+        "I am eager to apply my skills, learn from experienced engineers, and contribute to impactful engineering projects."
     ),
     "skills": [
         "Solidworks CSWA",
@@ -30,7 +32,7 @@ PORTFOLIO_DATA = {
         {"title": "Project C", "slug": "project-c"},
     ],
     "social": {
-        "github": "https://github.com/yourhandle",
+        "github": "https://github.com/abimferdous-pixel",
         "linkedin": "https://www.linkedin.com/in/abim-ferdous/",
         "email": "abimferdous@gmail.com",
         "phone": "(562) 574-9446",
