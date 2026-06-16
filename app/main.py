@@ -44,6 +44,12 @@ async def index(request: Request):
         "index.html", {"request": request, "data": PORTFOLIO_DATA}
     )
 
+@app.get("/resume", response_class=HTMLResponse)
+async def resume(request: Request):
+    return templates.TemplateResponse(
+        "resume.html", {"request": request, "data": PORTFOLIO_DATA}
+    )
+
 @app.get("/project/{slug}", response_class=HTMLResponse)
 async def project_page(request: Request, slug: str):
     project = next((p for p in PORTFOLIO_DATA["projects"] if p["slug"] == slug), None)
