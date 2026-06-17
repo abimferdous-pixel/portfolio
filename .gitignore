@@ -7,3 +7,5 @@ venv/
 *.egg-info/
 dist/
 build/
+app/static/images/Edugotchi_UCLA/DEMO_noaudio.mp4
+app/static/images/Edugotchi_UCLA/DEMO.mp4

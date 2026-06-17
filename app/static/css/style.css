@@ -155,6 +155,10 @@ body.cursor-hover #cursor-ring {
 }
 .nav-link:hover::after { width: 100%; }
 
+/* ---- Hide video volume controls ---- */
+.proj-video::-webkit-media-controls-volume-slider { display: none !important; }
+.proj-video::-webkit-media-controls-mute-button   { display: none !important; }
+
 /* ---- Gear teal filter ---- */
 .gear-teal {
   filter: sepia(1) saturate(5) hue-rotate(150deg);

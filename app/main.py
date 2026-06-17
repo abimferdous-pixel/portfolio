@@ -27,7 +27,22 @@ PORTFOLIO_DATA = {
         "Arduino Library",
     ],
     "projects": [
-        {"title": "Project A", "slug": "project-a"},
+        {
+            "title": "EduGotchi",
+            "slug": "project-a",
+            "description": "Meet EduGotchi! This product was built for IEEE UCLA '26 hackathon for the track of education. EduGotchi is our solution to addictive phone screens, providing children with a fun alternative way to learn and interact with a toy. With EduGotchi, my team and I have been able to get in the finalist rounds amongst 20+ teams.",
+            "specs": [
+                "ESP32 Microcontroller",
+                "LCD Display",
+                "MPU 6050 Module",
+            ],
+            "how_it_works": "The EduGotchi is able to fetch questions from any particular AI it is set up to with a reasonable temperature to promote learning. It comes with 5 pre-installed questions however, upon shaking the EduGotchi it is able to generate more questions and the degree of difficulty increases with mastery.",
+            "images": [
+                "/static/images/Edugotchi_UCLA/EduGotchi_One.png",
+                "/static/images/Edugotchi_UCLA/EduGotchi_Two.png",
+            ],
+            "video": "/static/images/Edugotchi_UCLA/DEMO_web.mp4",
+        },
         {"title": "Project B", "slug": "project-b"},
         {"title": "Project C", "slug": "project-c"},
     ],

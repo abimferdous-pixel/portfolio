@@ -22,7 +22,7 @@
       },
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 
 <body class="text-gray-100 font-sans min-h-screen flex flex-col" style="background-color:#1c1c1c; cursor:none;">
@@ -34,47 +34,131 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="fixed top-0 w-full z-50 py-4 px-8 bg-[#1c1c1c]/90 backdrop-blur border-b border-gray-900">
+  <nav class="fixed top-0 w-full z-50 py-4 px-6 md:px-8 bg-[#1c1c1c]/90 backdrop-blur border-b border-gray-900">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="/" class="font-display text-3xl tracking-widest text-accent">{{ data.name }}</a>
-      <a href="/#projects" class="text-sm font-semibold text-gray-400 hover:text-accent transition-colors tracking-widest uppercase">← Back to Projects</a>
+      <a href="/" class="font-display text-2xl md:text-3xl tracking-widest text-accent">{{ data.name }}</a>
+      <a href="/#projects" class="text-xs md:text-sm font-semibold text-gray-400 hover:text-accent transition-colors tracking-widest uppercase">← Back</a>
     </div>
   </nav>
 
-  <!-- Page wrapper: gears are positioned relative to this -->
+  {% if project and project.description %}
+  <!-- ===== FULL PROJECT PAGE ===== -->
+
   <div class="relative flex-1 flex flex-col overflow-hidden">
 
-    <!-- Main content -->
+    <!-- Single center gear -->
+    <img src="/static/images/gear.png" class="gear-teal absolute pointer-events-none opacity-10" style="width:300px;height:300px;top:-60px;right:-60px;animation:spin-gear 30s linear infinite;" />
+
+    <main class="flex-1 px-6 md:px-12 pt-28 pb-20 max-w-4xl mx-auto w-full">
+
+      <!-- Project title -->
+      <div id="proj-header" class="mb-12">
+        <p class="text-accent font-semibold tracking-[0.4em] uppercase text-xs mb-3">Project</p>
+        <h1 class="font-display text-6xl sm:text-8xl md:text-9xl tracking-wider leading-none mb-6">{{ project.title }}</h1>
+        <div class="w-16 h-0.5 bg-accent"></div>
+      </div>
+
+      <!-- Description -->
+      <section id="proj-desc" class="mb-14">
+        <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-4">Overview</p>
+        <p class="text-gray-300 text-base md:text-lg leading-relaxed">{{ project.description }}</p>
+      </section>
+
+      <!-- Specs -->
+      <section id="proj-specs" class="mb-14">
+        <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-4">Specs</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {% for spec in project.specs %}
+          <div class="border border-gray-800 hover:border-accent/50 px-6 py-5 rounded-xl transition-colors duration-200" style="background-color:#161616;">
+            <p class="text-white font-semibold text-sm tracking-wide">{{ spec }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section id="proj-how" class="mb-14">
+        <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-4">How It Works</p>
+        <p class="text-gray-300 text-base md:text-lg leading-relaxed">{{ project.how_it_works }}</p>
+      </section>
+
+      <!-- Images -->
+      <section id="proj-images" class="mb-14">
+        <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-4">Images</p>
+        {% if project.images %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          {% for img in project.images %}
+          <div class="aspect-[4/3] rounded-xl overflow-hidden border border-gray-800 hover:border-accent/50 transition-all duration-300 group">
+            <img src="{{ img }}" alt="Project image"
+                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          <div class="aspect-[4/3] rounded-xl border border-dashed border-gray-700 flex items-center justify-center text-gray-600 text-xs tracking-widest uppercase" style="background-color:#161616;">
+            Image coming soon
+          </div>
+          <div class="aspect-[4/3] rounded-xl border border-dashed border-gray-700 flex items-center justify-center text-gray-600 text-xs tracking-widest uppercase" style="background-color:#161616;">
+            Image coming soon
+          </div>
+        </div>
+        {% endif %}
+      </section>
+
+      <!-- Video -->
+      <section id="proj-video">
+        <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-4">Video</p>
+        {% if project.video %}
+        <div class="rounded-2xl overflow-hidden border border-gray-800 hover:border-accent/50 transition-colors duration-300 shadow-2xl" style="background:#161616;">
+          <video class="w-full block proj-video" controls muted playsinline preload="metadata"
+                 controlslist="novolume nodownload"
+                 style="max-height:520px; object-fit:contain; background:#000;">
+            <source src="{{ project.video }}" type="video/mp4" />
+          </video>
+        </div>
+        {% else %}
+        <div class="aspect-video rounded-xl border border-dashed border-gray-700 flex items-center justify-center text-gray-600 text-xs tracking-widest uppercase" style="background-color:#161616;">
+          Video coming soon
+        </div>
+        {% endif %}
+      </section>
+
+    </main>
+
+  </div>
+
+  {% else %}
+  <!-- ===== IN DEVELOPMENT PAGE ===== -->
+
+  <div class="relative flex-1 flex flex-col overflow-hidden">
     <main class="flex-1 flex items-center justify-center px-6 pt-24 pb-16 relative z-10">
       <div class="text-center max-w-2xl mx-auto" id="content">
-
-        <!-- Center gear -->
         <img src="/static/images/gear.png" alt="gear" class="w-24 h-24 mx-auto mb-8 spin-gear gear-teal" style="opacity:0.85;" />
-
         <p class="text-accent font-semibold tracking-[0.4em] uppercase text-sm mb-4">
           {{ project.title if project else "Project" }}
         </p>
-
-        <h1 class="font-display text-7xl md:text-9xl tracking-wider mb-6 text-white">
-          IN DEVELOPMENT
-        </h1>
-
+        <h1 class="font-display text-7xl md:text-9xl tracking-wider mb-6 text-white">IN DEVELOPMENT</h1>
         <p class="text-gray-500 text-base leading-relaxed mb-10">
           This project page is currently being built. Check back soon for updates.
         </p>
-
-        <a href="/#projects"
-           class="inline-block primary-btn font-bold px-8 py-3 tracking-widest text-sm uppercase">
+        <a href="/#projects" class="inline-block primary-btn font-bold px-8 py-3 tracking-widest text-sm uppercase">
           <span>Back to Projects</span>
         </a>
       </div>
     </main>
-
     <footer class="py-6 text-center text-gray-800 text-xs border-t border-gray-900 tracking-widest uppercase relative z-10">
       <p>{{ data.name }} · 2026</p>
     </footer>
-
   </div>
+
+  {% endif %}
+
+  {% if project and project.description %}
+  <footer class="py-6 text-center text-gray-800 text-xs border-t border-gray-900 tracking-widest uppercase">
+    <p>{{ data.name }} · 2026</p>
+  </footer>
+  {% endif %}
 
   <script>
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
@@ -90,7 +174,14 @@
       });
     }
 
-    gsap.from("#content", { opacity: 0, y: 40, duration: 0.9, ease: "back.out(1.4)", delay: 0.2 });
+    // Entrance animations
+    gsap.from("#proj-header", { opacity: 0, y: 40, duration: 0.8, ease: "power3.out", delay: 0.1 });
+    gsap.from("#proj-desc",   { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: 0.25 });
+    gsap.from("#proj-specs",  { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: 0.35 });
+    gsap.from("#proj-how",    { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: 0.45 });
+    gsap.from("#proj-images", { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: 0.55 });
+    gsap.from("#proj-video",  { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: 0.65 });
+    gsap.from("#content",     { opacity: 0, y: 40, duration: 0.9, ease: "back.out(1.4)", delay: 0.2 });
   </script>
 </body>
 </html>
