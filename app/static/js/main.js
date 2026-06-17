@@ -13,9 +13,10 @@ if (!isTouchDevice) {
   let mouseX = 0, mouseY = 0;
 
   window.addEventListener("mousemove", e => {
-    const x = e.clientX, y = e.clientY;
-    cursorDot.style.transform  = `translate(${x - 4}px, ${y - 4}px)`;
-    cursorRing.style.transform = `translate(${x - 18}px, ${y - 18}px)`;
+    cursorDot.style.left  = e.clientX + 'px';
+    cursorDot.style.top   = e.clientY + 'px';
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top  = e.clientY + 'px';
   });
 
   document.querySelectorAll("a, button, .mag-btn, .tilt-card").forEach(el => {

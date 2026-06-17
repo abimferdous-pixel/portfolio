@@ -84,9 +84,10 @@
       const dot = document.getElementById("cursor-dot");
       const ring = document.getElementById("cursor-ring");
       window.addEventListener("mousemove", e => {
-        const x = e.clientX, y = e.clientY;
-        dot.style.transform  = `translate(${x - 4}px, ${y - 4}px)`;
-        ring.style.transform = `translate(${x - 18}px, ${y - 18}px)`;
+        dot.style.left  = e.clientX + 'px';
+        dot.style.top   = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px';
+        ring.style.top  = e.clientY + 'px';
       });
       document.querySelectorAll("a,button").forEach(el => {
         el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
