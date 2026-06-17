@@ -11,20 +11,12 @@ if (!isTouchDevice) {
   const cursorDot  = document.getElementById("cursor-dot");
   const cursorRing = document.getElementById("cursor-ring");
   let mouseX = 0, mouseY = 0;
-  let ringX  = 0, ringY  = 0;
 
   window.addEventListener("mousemove", e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    gsap.set(cursorDot, { x: mouseX, y: mouseY });
+    const x = e.clientX, y = e.clientY;
+    cursorDot.style.transform  = `translate(${x - 4}px, ${y - 4}px)`;
+    cursorRing.style.transform = `translate(${x - 18}px, ${y - 18}px)`;
   });
-
-  (function animateRing() {
-    ringX += (mouseX - ringX) * 0.5;
-    ringY += (mouseY - ringY) * 0.5;
-    gsap.set(cursorRing, { x: ringX, y: ringY });
-    requestAnimationFrame(animateRing);
-  })();
 
   document.querySelectorAll("a, button, .mag-btn, .tilt-card").forEach(el => {
     el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
