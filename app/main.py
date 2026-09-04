@@ -16,7 +16,7 @@ PORTFOLIO_DATA = {
     "title": "Mechanical Engineering Student",
     "tagline": "Passionate about mechanical systems, PCB design, and building the future one component at a time.",
     "about": (
-        "I am a rising sophomore at Cerritos College pursuing opportunities in mechanical and multidisciplinary engineering. "
+        "I am a sophomore at Cerritos College pursuing opportunities in mechanical and multidisciplinary engineering. "
         "My technical experience includes PCB design, Arduino development, Python programming, and CAD modeling, supported by my SolidWorks CSWA certification. "
         "I have worked on real engineering projects involving design, prototyping, testing, and system integration, giving me practical experience beyond the classroom. "
         "I am eager to apply my skills, learn from experienced engineers, and contribute to impactful engineering projects."
