@@ -63,8 +63,11 @@ async def index(request: Request):
 
 @app.get("/resume", response_class=HTMLResponse)
 async def resume(request: Request):
+    resume_path = os.path.join(BASE_DIR, "static", "images", "RESUME_FINAL.pdf")
+    resume_version = int(os.path.getmtime(resume_path)) if os.path.exists(resume_path) else 0
     return templates.TemplateResponse(
-        "resume.html", {"request": request, "data": PORTFOLIO_DATA}
+        "resume.html",
+        {"request": request, "data": PORTFOLIO_DATA, "resume_version": resume_version},
     )
 
 @app.get("/project/{slug}", response_class=HTMLResponse)
