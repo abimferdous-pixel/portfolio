@@ -53,7 +53,14 @@
 
       <!-- Project title -->
       <div id="proj-header" class="mb-12">
-        <p class="text-accent font-semibold tracking-[0.4em] uppercase text-xs mb-3">Project</p>
+        <div class="flex flex-wrap items-center gap-3 mb-3">
+          <p class="text-accent font-semibold tracking-[0.4em] uppercase text-xs">Project</p>
+          {% if project.wip %}
+          <span class="inline-flex items-center gap-1.5 text-amber-400 border border-amber-400/40 bg-amber-400/10 rounded-full px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+            🚧 Work In Progress
+          </span>
+          {% endif %}
+        </div>
         <h1 class="font-display text-6xl sm:text-8xl md:text-9xl tracking-wider leading-none mb-6">{{ project.title }}</h1>
         <div class="w-16 h-0.5 bg-accent"></div>
       </div>

@@ -43,7 +43,22 @@ PORTFOLIO_DATA = {
             ],
             "video": "/static/images/Edugotchi_UCLA/DEMO_web.mp4",
         },
-        {"title": "Project B", "slug": "project-b"},
+        {
+            "title": "3DOF Robotic Arm",
+            "slug": "project-b",
+            "wip": True,
+            "description": "A 3-degree-of-freedom robotic arm designed in SolidWorks and driven by NEMA 17 stepper motors through custom 3D-printed gear reductions. It's currently operated manually via a web interface, with autonomous pick-and-place operation planned as a future phase. This project is a work in progress: CAD, printed parts, and electronics are underway, and I'm actively working through gearing, wiring, and control software.",
+            "specs": [
+                "NEMA 17 Stepper Motors",
+                "ESP32 Microcontroller",
+                "4:1 Planetary Gear Reduction",
+                "3D-Printed PETG Housings",
+                "Custom Stepper Driver Wiring",
+                "SolidWorks CAD Design",
+            ],
+            "how_it_works": "Each joint is driven by a NEMA 17 stepper motor through a custom 3D-printed gear reduction, controlled by an ESP32 wired to stepper driver modules on a breadboard prototype circuit. Right now the arm is operated manually through a web interface, and I'm evaluating cycloidal drive alternatives for the shoulder joint to address torque and durability needs before adding autonomous control.",
+            "images": [],
+        },
         {"title": "Project C", "slug": "project-c"},
     ],
     "social": {
