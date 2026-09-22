@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume — {{ data.name }}</title>
+  <title>Resume &amp; Transcript — {{ data.name }}</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -50,7 +50,7 @@
       <!-- Header row -->
       <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
         <div>
-          <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-2">My Resume</p>
+          <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-2">My Resume &amp; Transcript</p>
           <h1 class="font-display text-5xl md:text-6xl tracking-wider">{{ data.name }}</h1>
         </div>
         <a href="/static/images/RESUME_FINAL.pdf?v={{ resume_version }}" download
@@ -58,7 +58,7 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          Download
+          Download Resume
         </a>
       </div>
 
@@ -69,6 +69,29 @@
 
       <!-- PDF renders here as canvases -->
       <div id="pdf-container" class="w-full space-y-4"></div>
+
+      <!-- Transcript header row -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mt-16 mb-8 pt-8 border-t border-gray-800">
+        <div>
+          <p class="text-accent font-semibold tracking-widest uppercase text-xs mb-2">Academic Record</p>
+          <h2 class="font-display text-4xl md:text-5xl tracking-wider">Transcript</h2>
+        </div>
+        <a href="/static/images/TRANSCRIPT.pdf?v={{ transcript_version }}" download
+           class="primary-btn font-bold px-6 py-3 tracking-widest text-sm uppercase flex items-center gap-2 rounded">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          Download Transcript
+        </a>
+      </div>
+
+      <!-- Loading indicator -->
+      <div id="transcript-loading" class="text-center py-12 text-gray-500 text-sm tracking-widest uppercase">
+        Loading transcript...
+      </div>
+
+      <!-- Transcript PDF renders here as canvases -->
+      <div id="transcript-container" class="w-full space-y-4"></div>
 
     </div>
   </main>
@@ -105,39 +128,52 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const container = document.getElementById('pdf-container');
-    const loading   = document.getElementById('pdf-loading');
-    const pdfUrl    = '/static/images/RESUME_FINAL.pdf?v={{ resume_version }}';
-
-    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-      loading.style.display = 'none';
+    function renderPdf(url, containerId, loadingId, errorText) {
+      const container = document.getElementById(containerId);
+      const loading   = document.getElementById(loadingId);
       const dpr = window.devicePixelRatio || 1;
-      const renders = [];
-      for (let i = 1; i <= pdf.numPages; i++) {
-        renders.push(
-          pdf.getPage(i).then(page => {
-            const containerWidth = container.clientWidth || window.innerWidth - 32;
-            const unscaled = page.getViewport({ scale: 1 });
-            const scale    = (containerWidth / unscaled.width) * dpr;
-            const viewport = page.getViewport({ scale });
 
-            const canvas  = document.createElement('canvas');
-            canvas.width  = viewport.width;
-            canvas.height = viewport.height;
-            canvas.style.width  = '100%';
-            canvas.style.height = 'auto';
-            canvas.style.borderRadius = '8px';
-            canvas.style.border = '1px solid rgba(255,255,255,0.06)';
+      pdfjsLib.getDocument(url).promise.then(pdf => {
+        loading.style.display = 'none';
+        const renders = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+          renders.push(
+            pdf.getPage(i).then(page => {
+              const containerWidth = container.clientWidth || window.innerWidth - 32;
+              const unscaled = page.getViewport({ scale: 1 });
+              const scale    = (containerWidth / unscaled.width) * dpr;
+              const viewport = page.getViewport({ scale });
 
-            container.appendChild(canvas);
-            return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-          })
-        );
-      }
-      return Promise.all(renders);
-    }).catch(() => {
-      loading.textContent = 'Could not load resume. Please download it below.';
-    });
+              const canvas  = document.createElement('canvas');
+              canvas.width  = viewport.width;
+              canvas.height = viewport.height;
+              canvas.style.width  = '100%';
+              canvas.style.height = 'auto';
+              canvas.style.borderRadius = '8px';
+              canvas.style.border = '1px solid rgba(255,255,255,0.06)';
+
+              container.appendChild(canvas);
+              return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+            })
+          );
+        }
+        return Promise.all(renders);
+      }).catch(() => {
+        loading.textContent = errorText;
+      });
+    }
+
+    renderPdf(
+      '/static/images/RESUME_FINAL.pdf?v={{ resume_version }}',
+      'pdf-container', 'pdf-loading',
+      'Could not load resume. Please download it below.'
+    );
+
+    renderPdf(
+      '/static/images/TRANSCRIPT.pdf?v={{ transcript_version }}',
+      'transcript-container', 'transcript-loading',
+      'Could not load transcript. Please download it below.'
+    );
   </script>
 </body>
 </html>
